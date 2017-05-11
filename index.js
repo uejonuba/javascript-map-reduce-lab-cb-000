@@ -9000,3 +9000,56 @@ const issues = [
     "url": "https://api.github.com/repos/learn-co-curriculum/js-donut-lab/issues/2"
   }
 ];
+
+var issuesWithUpdatedApiUrl = issues.map(function (obj){
+  var retObj = Object.assign({},obj);
+  retObj.url = retObj.url.replace(/api.github.com/, 'api-v2.github.com');
+  return retObj;
+});
+
+var comments_count = issues.map(function(obj){
+  return parseInt(obj.comments_count);
+} );
+
+var commentCountAcrossIssues = comments_count.reduce(commentCounter,0)
+
+function commentCounter(total, elem){
+  return total+elem;
+}
+
+var openIssues = issues.map(function (obj){
+  var retObj = Object.assign({},obj);
+  if (obj.state == 'open');
+    return retObj;
+})
+
+var nonAutomaticIssues = issues.map(function(obj){
+  var retObj = Object.assign({},obj);
+  if (obj.body == "This pull request has been automatically created by learn.co.")
+    return retObj;
+})
+
+
+
+function setupTest() {
+    // Get the last <li> element ("Milk") of <ul> with id="myList2"
+    var itm = document.querySelector('tr');
+
+    // Copy the <li> element and its child nodes
+    //var cln = itm.cloneNode(true);
+
+    // Append the cloned <li> element to <ul> with id="myList1"
+
+    issues.map(function (obj,index){
+      var cln = itm.cloneNode(true);
+      var lister = cln.querySelectorAll('th');
+      lister[0].innerHTML = obj.body;
+      lister[1].innerHTML = obj.created_at;
+      lister[2].innerHTML = obj.state;
+      document.getElementById("results").appendChild(cln);
+    })
+
+    document.getElementById("results").appendChild(cln);
+  }
+
+setupTest();
